@@ -16,16 +16,28 @@ class MainActivity : AppCompatActivity() {
         val rollButton: Button = findViewById(R.id.roll_button)
         rollButton.text = "Let's Roll"
 
+        val resetButton: Button = findViewById(R.id.reset_button)
+
         rollButton.setOnClickListener(){
             rollDice()
         }
+        resetButton.setOnClickListener(){
+            reset()
+        }
+    }
+
+    private fun reset() {
+        diceImage.setImageResource(getDrawableResource(0))
     }
 
     private fun rollDice() {
-        //val result: TextView =findViewById(R.id.result)
         val randomInt = Random().nextInt(6)+1
-       // result.text = randomInt.toString()
-        val drawableResource = when (randomInt) {
+        diceImage.setImageResource(getDrawableResource(randomInt))
+    }
+
+    private fun getDrawableResource(randomInt: Int): Int {
+        return when (randomInt) {
+            0 -> R.drawable.empty_dice
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -33,7 +45,5 @@ class MainActivity : AppCompatActivity() {
             5 -> R.drawable.dice_5
             else -> R.drawable.dice_6
         }
-
-        diceImage.setImageResource(drawableResource)
     }
 }
